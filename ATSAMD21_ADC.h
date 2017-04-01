@@ -21,7 +21,13 @@
 #define SAMPLES16 0x8 // pg 853
 #define SAMPLES12 0x0
 
-#define ADC_PIN_GND 0x18 // pg 869
+#define ADC_PIN_TEMP 0x18 // positive mux, pg 870
+#define ADC_PIN_BANDGAP 0x19
+#define ADC_PIN_SCALEDCOREVCC 0x1A
+#define ADC_PIN_SCALEDIOVCC 0x1B
+#define ADC_PIN_DAC 0x1C
+
+#define ADC_PIN_GND 0x18 // negative mux, pg 869
 #define ADC_PIN_IOGND 0x19
 
 #define ADC_GAIN_1 0x0 // pg 868
