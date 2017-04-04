@@ -4,11 +4,11 @@ Datasheet: https://cdn.sparkfun.com/datasheets/Dev/Arduino/Boards/Atmel-42181-SA
 
 ### uint8_t analogReadExtended(uint8_t bits)
 Allows for the ADC to read 8, 10, or 12 bits normally or 13-16 bits using oversampling and decimation. This works with all analog read functions, including ***analogRead(uint8_t pin)*** given in the Arduino IDE. See pages 853 & 862 of the datasheet. Arduino has *10* as default.  
- * ***8***, ***10***, ***12*** bit = 1 sample ~ 436 microseconds
- * ***13*** bit        = 4 samples ~ 1668 microseconds
- * ***14*** bit        = 16 samples ~ 6595 microseconds
- * ***15*** bit        = 64 samples ~ 26308 microseconds
- * ***16*** bit        = 256 samples ~ 105156 microseconds
+ * ***8***, ***10***, ***12*** bit = 1 sample 
+ * ***13*** bit        = 4 samples 
+ * ***14*** bit        = 16 samples 
+ * ***15*** bit        = 64 samples 
+ * ***16*** bit        = 256 samples 
 
 ### int16_t analogDifferential(uint8_t pos_pin, uint8_t neg_pin)
 Reads a differential voltage with ***pos_pin*** and ***neg_pin***. These pins correspond to the values given in the Arduino headers. For example, to connect A0 and A3 on the Arduino use analogDifferential(A0,A3).  ***neg_pin*** cannot be A1 or A2 on the Arduino MKR1000, as these are connected internally to different pins on the main chip. See pages 869-870 of the datasheet for more information on that. This code performs very similarly to ***analogRead(uint8_t pin)*** given in the Arduino IDE, but puts it into differential mode instead of single-ended. It also shuts off the DAC if one of the pins you selected is connected to it internally. 
