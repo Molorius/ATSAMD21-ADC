@@ -42,7 +42,7 @@ Sets the gain of the ADC. See pages 868-869 of the datasheet. Arduino has *ADC_G
 * ***ADC_GAIN_DIV2*** - 1/2x
 
 ### void analogCalibrate()
-Copies the values from the NVM software calibration registry to the ADC CALIB registry. See page 882 of the datasheet. 
+Copies the values from the NVM software calibration registry to the ADC CALIB registry. See page 882 of the datasheet. Note that I used the method done by the Arduino IDE to read the NVM software calibration registry, but I cannot verify it was done so correctly. Any help with this would be appreciated. 
 
 ### void analogReference2(uint8_t ref)
 This is similar to the ***analogReference*** function defined in the Arduino IDE, but that version alters the gain depending on the desired reference. This does not. Arduino has *ADC_REF_VCC1* as default. See page 861 of the datasheet. Possible options are:
