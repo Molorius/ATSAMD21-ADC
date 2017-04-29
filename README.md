@@ -4,7 +4,7 @@ Functions for many of the ADC capabilities of the Atmel SAMD21 series. Currently
 [Datasheet.](https://cdn.sparkfun.com/datasheets/Dev/Arduino/Boards/Atmel-42181-SAM-D21_Datasheet.pdf)
 
 * [Analog Read Functions](#analog-read-functions)
-   * [analogReadExtended](#uint8t-analogreadextendeduint8t-bits "uint8_t analogReadExtended(uint8_t bits)")
+   * [analogReadExtended](#uint8_t-analogreadextendeduint8_t-bits "uint8_t analogReadExtended(uint8_t bits)")
    * [analogDifferential](int16_t-analogdifferential "int16_t analogDifferential(uint8_t pos_pin, uint8_t neg_pin)")
    * [analogDifferentialRaw](int16_t-analogdifferentialraw "int16_t analogDifferentialRaw(uint8_t mux_pos, uint8_t mux_neg)")
    * [internalPinValue](uint8_t-internalpinvalue "uint8_t internalPinValue(uint8_t pin)")
