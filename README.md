@@ -1,22 +1,27 @@
 ATSAMD21-ADC
 ============
 Functions for many of the ADC capabilities of the Atmel SAMD21 series. Currently this requires some of the functions given in the Arduino IDE, but I will make it optional in the future. Tested on the Arduino MKR1000. 
-[Datasheet.](https://cdn.sparkfun.com/datasheets/Dev/Arduino/Boards/Atmel-42181-SAM-D21_Datasheet.pdf)
+[Datasheet.](https://cdn.sparkfun.com/datasheets/Dev/Arduino/Boards/Atmel-42181-SAM-D21_Datasheet.pdf "Atmel SAMD21 Datasheet")
 
 * [Analog Read Functions](#analog-read-functions)
    * [analogReadExtended](#uint8_t-analogreadextendeduint8_t-bits "uint8_t analogReadExtended(uint8_t bits)")
-   * [analogDifferential](int16_t-analogdifferential "int16_t analogDifferential(uint8_t pos_pin, uint8_t neg_pin)")
-   * [analogDifferentialRaw](int16_t-analogdifferentialraw "int16_t analogDifferentialRaw(uint8_t mux_pos, uint8_t mux_neg)")
-   * [internalPinValue](uint8_t-internalpinvalue "uint8_t internalPinValue(uint8_t pin)")
-* [ADC Settings](adc-settings)
-   * [analogGain](void-analoggain "void analogGain(uint8_t gain)")
+   * [analogDifferential](#int16_t-analogdifferentialuint8_t-pos_pin-uint8_t-neg_pin "int16_t analogDifferential(uint8_t pos_pin, uint8_t neg_pin)")
+   * [analogDifferentialRaw](#int16_t-analogdifferentialrawuint8_t-mux_pos-uint8_t-mux_neg "int16_t analogDifferentialRaw(uint8_t mux_pos, uint8_t mux_neg)")
+   * [internalPinValue](#uint8_t-internalpinvalueuint8_t-pin "uint8_t internalPinValue(uint8_t pin)")
+* [ADC Settings](#adc-settings)
+   * [analogGain](#void-analoggainuint8_t-gain "void analogGain(uint8_t gain)")
+   * [analogCalibrate](#void-analogcalibrate "void analogCalibrate()")
+   * [analogReference2](#void-analogreference2uint8_t-ref "void analogReference2(uint8_t ref)")
+   * [analogReferenceCompensation](#void-analogreferencecompensationuint8_t-val "void analogReferenceCompensation(uint8_t val)")
+   * [analogPrescaler](#void-analogprescaleruint8_t-val "void analogPrescaler(uint8_t val)")
+   * [analogReset](#void-analogreset "void analogReset()")
 
 Analog Read Functions
 =====================
 
 uint8_t analogReadExtended(uint8_t bits)
 ----------------------------------------
-Allows for the ADC to read 8, 10, or 12 bits normally or 13-16 bits using oversampling and decimation. This works with all analog read functions, including ***analogRead(uint8_t pin)*** given in the Arduino IDE. See pages 853 & 862 of the datasheet. Arduino has *10* as default.  
+Allows for the ADC to read 8, 10, or 12 bits normally or 13-16 bits using oversampling and decimation. This works with all analog read functions, including `analogRead(uint8_t pin)` given in the [Arduino IDE](https://www.arduino.cc/en/Reference/analogRead). See pages 853 & 862 of the datasheet. Arduino has *10* as default.  
  * ***8***, ***10***, ***12*** bit = 1 sample 
  * ***13*** bit        = 4 samples 
  * ***14*** bit        = 16 samples 
@@ -25,11 +30,11 @@ Allows for the ADC to read 8, 10, or 12 bits normally or 13-16 bits using oversa
 
 int16_t analogDifferential(uint8_t pos_pin, uint8_t neg_pin)
 ------------------------------------------------------------
-Reads a differential voltage with ***pos_pin*** and ***neg_pin***. These pins correspond to the values given in the Arduino headers. For example, to connect A0 and A3 on the Arduino use analogDifferential(A0,A3).  ***neg_pin*** cannot be A1 or A2 on the Arduino MKR1000, as these are connected internally to different pins on the main chip. See pages 869-870 of the datasheet for more information on that. This code performs very similarly to ***analogRead(uint8_t pin)*** given in the Arduino IDE, but puts it into differential mode instead of single-ended. It also shuts off the DAC if one of the pins you selected is connected to it internally. 
+Reads a differential voltage with ***pos_pin*** and ***neg_pin***. These pins correspond to the values given in the Arduino headers. For example, to connect A0 and A3 on the Arduino use `analogDifferential(A0,A3)`.  ***neg_pin*** cannot be A1 or A2 on the Arduino MKR1000, as these are connected internally to different pins on the main chip. See pages 869-870 of the datasheet for more information on that. This code performs very similarly to `analogRead(uint8_t pin)` given in the [Arduino IDE](https://www.arduino.cc/en/Reference/analogRead), but puts it into differential mode instead of single-ended. It also shuts off the DAC if one of the pins you selected is connected to it internally. 
 
 int16_t analogDifferentialRaw(uint8_t mux_pos, uint8_t mux_neg)
 ---------------------------------------------------------------
-This is very similar to the above ***analogDifferential(uint8_t pos_pin, uint8_t neg_pin)*** function above, but instead takes in takes in the hex values for the pins you want to connect. See pages 869-870 of the datasheet for more information on this. Note that the internal pin values and the pins broken out on the Arduino boards do not necessarily match. This also doesn't check that the pin used is internally connected to the DAC. 
+This is very similar to the `analogDifferential(uint8_t pos_pin, uint8_t neg_pin)` function [above](#int16_t-analogdifferentialuint8_t-pos_pin-uint8_t-neg_pin "int16_t analogDifferential(uint8_t pos_pin, uint8_t neg_pin)"), but instead takes in takes in the hex values for the pins you want to connect. See pages 869-870 of the datasheet for more information on this. Note that the internal pin values and the pins broken out on the Arduino boards do not necessarily match. This also doesn't check that the pin used is internally connected to the DAC. 
 
 *mux_pos* values can be found on page 870 of the datasheet. These are:
 * ***0***-***19*** - corresponding to ADC AIN 0-19 pins. 
@@ -46,7 +51,7 @@ This is very similar to the above ***analogDifferential(uint8_t pos_pin, uint8_t
 
 uint8_t internalPinValue(uint8_t pin)
 -------------------------------------
-Returns the internal value of an external analog pin. Useful for determining pin numbers for the **analogDifferentialRaw** function above. 
+Returns the internal value of an external analog pin. Useful for determining pin numbers for the `analogDifferentialRaw` function [above](#int16_t-analogdifferentialrawuint8_t-mux_pos-uint8_t-mux_neg "int16_t analogDifferentialRaw(uint8_t mux_pos, uint8_t mux_neg)"). 
 
 ADC Settings
 ============
@@ -67,12 +72,12 @@ Copies the values from the NVM software calibration registry to the ADC CALIB re
 
 void analogReference2(uint8_t ref)
 ----------------------------------
-This is similar to the ***analogReference*** function defined in the Arduino IDE, but that version alters the gain depending on the desired reference. This does not. Arduino has *ADC_REF_VCC1* as default. See page 861 of the datasheet. Possible options are:
-* ***ADC_REF_INT1V*** - 1.0V reference
-* ***ADC_REF_VCC0***  - 1/1.48 VDDANA
-* ***ADC_REF_VCC1***  - 1/2 VDDANA
-* ***ADC_REF_VREFA*** - external reference
-* ***ADC_REF_VREFB*** - external reference
+This is similar to the `analogReference(uint8_t ref)` function defined in the [Arduino IDE](https://www.arduino.cc/en/Reference/analogReference), but that version alters the gain depending on the desired reference. This does not. Arduino has *ADC_REF_VCC1* as default. See page 861 of the datasheet. Possible options are:
+- ***ADC_REF_INT1V*** - 1.0V reference
+- ***ADC_REF_VCC0***  - 1/1.48 VDDANA
+- ***ADC_REF_VCC1***  - 1/2 VDDANA
+- ***ADC_REF_VREFA*** - external reference
+- ***ADC_REF_VREFB*** - external reference
 
 void analogReferenceCompensation(uint8_t val)
 ---------------------------------------------
